@@ -6,19 +6,12 @@ function startG() {
 document.getElementById('startGame').addEventListener('click', startG);
 var testElement = document.getElementById("test");
 let firstName = "Hello Dylan ";
-/*
- *  w3school
-*/
-// Implicit any as JSON.parse doesn't know what type of data it returns so it can be "any" thing...
 const json = JSON.parse('{"age" : "55"}');
-// Most expect json to be an object, but it can be a string or a number like this example
 const number = JSON.parse('55');
-// console.log(typeof number);
 testElement.innerText = typeof json + " => age : " + json.age;
 let v = true;
-v = "string"; // no error as it can be "any" type
-console.log(typeof v, Math.round(v)); // no error as it can be "any" type
-// class definition
+v = "string";
+console.log(typeof v, Math.round(v));
 class Person {
     constructor(name, age) {
         this.name = name;
@@ -54,13 +47,9 @@ class Square extends Rectangle {
         return `Square[width=${this.width}]`;
     }
 }
-//keyof
 function printPersonProperty(person, property) {
     console.log(`Printing person property ${property}: "${person[property]}"`);
 }
-/*
- * execution
-*/
 const person = new Person("Jane", 23);
 console.log(person.getNameAge());
 const rectangle = new Rectangle(5, 6);
@@ -69,5 +58,5 @@ console.log(rectangle.toString());
 const square = new Square(5);
 console.log(square.getArea());
 console.log(square.toString());
-printPersonProperty(person, "name"); // Printing person property name it should be public 
+printPersonProperty(person, "name");
 //# sourceMappingURL=app.js.map
