@@ -59,7 +59,12 @@ class Square extends Rectangle {
         return `Square[width=${this.width}]`;
     }
 }
+//keyof
+function printPersonProperty(person, property) {
+    console.log(`Printing person property ${property}: "${person[property]}"`);
+}
 const square = new Square(5);
 console.log(square.getArea());
 console.log(square.toString());
+printPersonProperty(person, "name"); // Printing person property name it should be public 
 //# sourceMappingURL=app.js.map

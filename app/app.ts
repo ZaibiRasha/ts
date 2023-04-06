@@ -24,7 +24,7 @@ console.log(typeof v, Math.round(v)); // no error as it can be "any" type
 
 // class definition
 class Person {
-  protected  readonly name: string;
+  public  readonly name: string;
   protected  age: number;
 
   public constructor(name: string, age?: number) {
@@ -79,6 +79,11 @@ class Square extends Rectangle {
   }
   // getArea gets inherited from Rectangle
 }
+//keyof
+function printPersonProperty(person: Person, property: keyof Person) {
+  console.log(`Printing person property ${property}: "${person[property]}"`);
+}
 const square = new Square(5);
 console.log(square.getArea()); 
 console.log(square.toString());
+printPersonProperty(person, "name"); // Printing person property name it should be public 
