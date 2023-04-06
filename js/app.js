@@ -28,8 +28,6 @@ class Person {
         return this.name + (this.age ? " age is " + this.age : "");
     }
 }
-const person = new Person("Jane", 23);
-console.log(person.getNameAge());
 class Polygon {
     toString() {
         return `Polygon[area=${this.getArea()}]`;
@@ -45,9 +43,6 @@ class Rectangle extends Polygon {
         return this.width * this.height;
     }
 }
-const rectangle = new Rectangle(5, 6);
-console.log(rectangle.getArea());
-console.log(rectangle.toString());
 class Square extends Rectangle {
     constructor(width) {
         super(width, width);
@@ -63,6 +58,14 @@ class Square extends Rectangle {
 function printPersonProperty(person, property) {
     console.log(`Printing person property ${property}: "${person[property]}"`);
 }
+/*
+ * execution
+*/
+const person = new Person("Jane", 23);
+console.log(person.getNameAge());
+const rectangle = new Rectangle(5, 6);
+console.log(rectangle.getArea());
+console.log(rectangle.toString());
 const square = new Square(5);
 console.log(square.getArea());
 console.log(square.toString());
