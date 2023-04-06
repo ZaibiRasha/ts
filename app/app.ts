@@ -68,7 +68,7 @@ class Square extends Rectangle {
     return  Math.pow(this.width, 2);
     }
 
-  public override toString(): string {
+  public  toString(): string {
     return `Square[width=${this.width}]`;
   }
   // getArea gets inherited from Rectangle
