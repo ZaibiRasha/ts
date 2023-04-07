@@ -1,61 +1,87 @@
 "use strict";
-function startG() {
-    var messagesElement = document.getElementById("messages");
-    messagesElement.innerText = "start Game";
-}
-document.getElementById('startGame').addEventListener('click', startG);
-var testElement = document.getElementById("test");
-let firstName = "Hello Dylan ";
-const json = JSON.parse('{"age" : "55"}');
-const number = JSON.parse('55');
-let v = true;
-v = "string";
-console.log(typeof v, Math.round(v));
-class Person {
-    constructor(name, age) {
-        this.name = name;
-        age ? this.age = age : this.age = 0;
+class Player {
+    constructor() {
+        this.name = "";
     }
-    getNameAge() {
-        return this.name + (this.age ? " age is " + this.age : "");
+    formatName() {
+        return this.name.toUpperCase();
+    }
+    ;
+}
+class Utility {
+    static getInputValue(elemntID) {
+        const postedScores = document.getElementById(elemntID);
+        return postedScores.value;
     }
 }
-class Polygon {
-    toString() {
-        return `Polygon[area=${this.getArea()}]`;
+class Scoreboard {
+    constructor() {
+        this.results = [];
+    }
+    addResult(newResult) {
+        this.results.push(newResult);
+    }
+    updateScoreboard() {
+        let output = '';
+        for (let i = 0; i < this.results.length; i++) {
+            const result = this.results[i];
+            output += '<h4>';
+            output += result.playerName + ' : ' + result.score + ' / ' + result.problemCount + ' for factor ' + result.factor;
+            output += '<h4>';
+        }
+        const scoreElement = document.getElementById('postedScores');
+        scoreElement.innerHTML = output;
     }
 }
-class Rectangle extends Polygon {
-    constructor(width, height) {
-        super();
-        this.width = width;
-        this.height = height;
+class Game {
+    constructor(player, problemCount, factor) {
+        this.player = player;
+        this.problemCount = problemCount;
+        this.factor = factor;
+        this.scoreboard = new Scoreboard();
     }
-    getArea() {
-        return this.width * this.height;
+    displayGame() {
+        let gameForm = '';
+        for (let i = 1; i <= this.problemCount; i++) {
+            gameForm += '<div class="form-group">';
+            gameForm += '<label for="answer' + i + '" class="col-sm-2 control-label">';
+            gameForm += String(this.factor) + ' x ' + i + ' = </label>';
+            gameForm += '<div class="col-sm-1"><input type="text" class="form-control" id="answer' + i + '" size="5" /></div>';
+            gameForm += '</div>';
+        }
+        const gameElement = document.getElementById('game');
+        gameElement.innerHTML = gameForm;
+        document.getElementById('calculate').removeAttribute('disabled');
+    }
+    calculateScore() {
+        let score = 0;
+        for (let i = 1; i <= this.problemCount; i++) {
+            const answer = Number(Utility.getInputValue('answer' + i));
+            if (i * this.factor === answer) {
+                score++;
+            }
+        }
+        const result = {
+            playerName: this.player.name,
+            score: score,
+            problemCount: this.problemCount,
+            factor: this.factor
+        };
+        this.scoreboard.addResult(result);
+        this.scoreboard.updateScoreboard();
+        document.getElementById('calculate').setAttribute('disabled', 'true');
     }
 }
-class Square extends Rectangle {
-    constructor(width) {
-        super(width, width);
-    }
-    getArea() {
-        return Math.pow(this.width, 2);
-    }
-    toString() {
-        return `Square[width=${this.width}]`;
-    }
-}
-function printPersonProperty(person, property) {
-    console.log(`Printing person property ${property}: "${person[property]}"`);
-}
-const person = new Person("Jane", 23);
-console.log(person.getNameAge());
-const rectangle = new Rectangle(5, 6);
-console.log(rectangle.getArea());
-console.log(rectangle.toString());
-const square = new Square(5);
-console.log(square.getArea());
-console.log(square.toString());
-printPersonProperty(person, "name");
+let newGame;
+document.getElementById('startGame').addEventListener('click', () => {
+    const player = new Player();
+    player.name = Utility.getInputValue('playername');
+    const problemCount = Number(Utility.getInputValue('problemCount'));
+    const factor = Number(Utility.getInputValue('factor'));
+    newGame = new Game(player, problemCount, factor);
+    newGame.displayGame();
+});
+document.getElementById('calculate').addEventListener('click', () => {
+    newGame.calculateScore();
+});
 //# sourceMappingURL=app.js.map
