@@ -8,7 +8,6 @@ var testElement = document.getElementById("test");
 let firstName = "Hello Dylan ";
 const json = JSON.parse('{"age" : "55"}');
 const number = JSON.parse('55');
-testElement.innerText = typeof json + " => age : " + json.age;
 let v = true;
 v = "string";
 console.log(typeof v, Math.round(v));

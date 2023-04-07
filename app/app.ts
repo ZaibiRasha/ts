@@ -41,28 +41,30 @@ const  logMessage = (message:string ): void => console.log(message);
 function logError (err : string) : void{
   console.error(err);
 }
+
+
 document.getElementById('startGame')!.addEventListener('click',startG);
 var testElement = document.getElementById("test");
 let firstName : String = "Hello Dylan ";
+let myResult : Result= {
+  playerName : "Racha",
+  score : 5,
+  problemCount : 5,
+  factor : 6
+};
 
+let player : Person= {
+  name : "Racha Zaibi",
+  age : 25,
+  formatName:()=> "Racha"
+};
 /* 
  *  w3school
 */
 
-// Implicit any as JSON.parse doesn't know what type of data it returns so it can be "any" thing...
-const json = JSON.parse('{"age" : "55"}');
-// Most expect json to be an object, but it can be a string or a number like this example
-const number = JSON.parse('55');
-// console.log(typeof number);
-
-testElement!.innerText = typeof json + " => age : " +json.age ;
-
-let v: any = true;
-v = "string"; // no error as it can be "any" type
-console.log(typeof v, Math.round(v)); // no error as it can be "any" type
 
 // class definition
-class Person {
+class Persone {
   public  readonly name: string;
   protected  age: number;
 
@@ -114,7 +116,7 @@ class Square extends Rectangle {
 }
 
 //keyof
-function printPersonProperty(person: Person, property: keyof Person) {
+function printPersonProperty(person: Persone, property: keyof Persone) {
   console.log(`Printing person property ${property}: "${person[property]}"`);
 }
 
@@ -122,7 +124,20 @@ function printPersonProperty(person: Person, property: keyof Person) {
 /*
  * execution
 */
-const person = new Person("Jane",23);
+if(false){
+  // Implicit any as JSON.parse doesn't know what type of data it returns so it can be "any" thing...
+const json = JSON.parse('{"age" : "55"}');
+// Most expect json to be an object, but it can be a string or a number like this example
+const number = JSON.parse('55');
+// console.log(typeof number);
+
+// testElement!.innerText = typeof json + " => age : " +json.age ;
+
+let v: any = true;
+v = "string"; // no error as it can be "any" type
+console.log(typeof v, Math.round(v)); // no error as it can be "any" type
+
+const person = new Persone("Jane",23);
 console.log(person.getNameAge());
 
 const rectangle = new Rectangle(5,6);
@@ -134,3 +149,4 @@ console.log(square.getArea());
 console.log(square.toString());
 
 printPersonProperty(person, "name"); // Printing person property name it should be public 
+}
