@@ -1,6 +1,45 @@
-function startG () {
-  var messagesElement = document.getElementById("messages");
-  messagesElement!.innerText = "start Game";
+function startG (): void {
+  let playerName: string |undefined = getInputValue('playername');
+  let factor: string |undefined = getInputValue('factor');
+  
+  logPlayer(playerName);
+  postScore(parseInt(factor?factor:"") ,playerName);
+  // postScore(-5,playerName);
+}
+
+function logPlayer(name:string ='MultiMath Player' ): void  {
+  console.log(`new game for player : ${name}`)
+}
+
+function getInputValue ( elemntID : string ) : string |undefined{
+  const postedScores:HTMLInputElement = <HTMLInputElement>document.getElementById(elemntID);
+  if (postedScores.value ==='') {
+    return undefined;
+  } else {
+    return postedScores.value;
+  }
+}
+
+function postScore (score : number = 0, playerName:string ='MultiMath Player' ): void {
+  let logger : (value : string) =>void;
+  var postedScores : HTMLElement | null = document.getElementById("postedScores");
+
+  if (score < 0) {
+    logger = logError;
+    postedScores!.innerText = " No scores yet ";
+  } else {
+    logger = logMessage;  
+    postedScores!.innerText = `${score} - ${playerName}`;
+  }
+
+  logger (`Score ${score}`);
+}
+
+// Arrow fct
+const  logMessage = (message:string ): void => console.log(message);
+
+function logError (err : string) : void{
+  console.error(err);
 }
 document.getElementById('startGame')!.addEventListener('click',startG);
 var testElement = document.getElementById("test");
